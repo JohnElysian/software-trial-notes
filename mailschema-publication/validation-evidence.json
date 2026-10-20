@@ -1,0 +1,62 @@
+{
+  "startedAt": "2026-10-20T13:10:27.656Z",
+  "nodeVersion": "v24.20.0",
+  "packageVersion": "0.3.2",
+  "dependencyReuse": "Previously installed mailschema0.3.2 via local node_modules junction; no new install.",
+  "initialExploration": {
+    "installStartedAt": "2026-10-20T07:18:03.892Z",
+    "firstFixtureValidAt": "2026-10-20T07:20:52.818Z",
+    "fixtureElapsedMinutes": 2.82,
+    "scope": "Earlier inert example.invalid fixture, not this prototype."
+  },
+  "valid": {
+    "startedAt": "2026-10-20T13:10:27.657Z",
+    "completedAt": "2026-10-20T13:10:27.828Z",
+    "command": [
+      "node",
+      "./node_modules/mailschema/bin/mailschema.js",
+      "description",
+      "description.json",
+      "--contract",
+      "publication-contract.json"
+    ],
+    "exitCode": 0,
+    "stdout": "Valid MAP 0.3 description urn:uuid:2e1cc951-b0ea-4c64-92e8-68eea440eb10\nsha-256:067df843f8864eecab610499d4f6e6255302046f738246b4fab417c74424f2e6\n",
+    "stderr": ""
+  },
+  "negative": {
+    "startedAt": "2026-10-20T13:10:27.829Z",
+    "completedAt": "2026-10-20T13:10:27.984Z",
+    "command": [
+      "node",
+      "./node_modules/mailschema/bin/mailschema.js",
+      "description",
+      "description.broken.json",
+      "--contract",
+      "publication-contract.json"
+    ],
+    "exitCode": 1,
+    "stdout": "",
+    "stderr": "/details/content/digest: must match pattern \"^sha-256:[0-9a-f]{64}$\"\n"
+  },
+  "restored": {
+    "startedAt": "2026-10-20T13:10:27.984Z",
+    "completedAt": "2026-10-20T13:10:28.137Z",
+    "command": [
+      "node",
+      "./node_modules/mailschema/bin/mailschema.js",
+      "description",
+      "description.json",
+      "--contract",
+      "publication-contract.json"
+    ],
+    "exitCode": 0,
+    "stdout": "Valid MAP 0.3 description urn:uuid:2e1cc951-b0ea-4c64-92e8-68eea440eb10\nsha-256:067df843f8864eecab610499d4f6e6255302046f738246b4fab417c74424f2e6\n",
+    "stderr": ""
+  },
+  "descriptionDigest": "sha-256:067df843f8864eecab610499d4f6e6255302046f738246b4fab417c74424f2e6",
+  "prototypeToValidMinutes": 1.58485,
+  "originalInstallToThisValidMinutes": 352.39893333333333,
+  "contentDigest": "sha-256:4167b1f3f78ec6f7637ff38506132e53791786490cd7011a08a2e55442c43454",
+  "note": "Local developer service was active at the recorded localhost origin during validation; it closes after this run. No email delivery, DKIM authentication, external publication or production MAP conformance is claimed."
+}

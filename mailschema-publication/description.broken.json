@@ -1,0 +1,65 @@
+{
+  "@context": "https://mailschema.org/contexts/map-0.3.jsonld",
+  "@type": "MailAction",
+  "@id": "urn:uuid:2e1cc951-b0ea-4c64-92e8-68eea440eb10",
+  "profile": "https://mailschema.org/profiles/map/0.3",
+  "type": {
+    "id": "https://mailschema.org/types/publication-approval",
+    "version": "0.1",
+    "contractDigest": "sha-256:de91a49de4cba91209be253456e7c56709791fff877a060560d4eada0cc9468c"
+  },
+  "issuedAt": "2026-10-20T13:10:27Z",
+  "expiresAt": "2026-10-20T14:10:27Z",
+  "inLanguage": "en",
+  "service": {
+    "id": "https://localhost:63426",
+    "tenant": "urn:uuid:5f72ac1d-42c9-477a-9443-13904b1cf6a4"
+  },
+  "recipient": "local-reviewer@localhost",
+  "subject": {
+    "id": "urn:uuid:fc25a02c-7550-487d-b0ab-d012f6d8788e",
+    "title": "LOCAL LAB: publication gate trial note"
+  },
+  "terms": {
+    "id": "urn:uuid:01acd29d-5247-4d01-b7e9-1ff1bd83d548",
+    "version": "sha-256:19064ea017d442011a38e459e06113020834f9b5d06f638cf51d9450060c8ccc"
+  },
+  "details": {
+    "summary": "Developer-only proposal to release this frozen trial note to the local restricted review space. No mail delivery or internet publication is proposed.",
+    "requester": "JohnElysian Codex agent, local development session",
+    "content": {
+      "id": "https://localhost:63426/content",
+      "revision": "4e362877-f38d-42c2-8041-11c0321525e6",
+      "digest": "sha-256:invalid",
+      "title": "Local publication gate trial"
+    },
+    "destinations": [
+      {
+        "id": "https://localhost:63426/published",
+        "account": "urn:uuid:2d16b0e0-dbcb-406d-8ebc-1735f87109b4",
+        "visibility": "restricted",
+        "audience": {
+          "id": "urn:uuid:2d16b0e0-dbcb-406d-8ebc-1735f87109b4",
+          "revision": "local-session-v1"
+        }
+      }
+    ],
+    "schedule": {
+      "mode": "immediate"
+    }
+  },
+  "operations": [
+    {
+      "id": "approve"
+    },
+    {
+      "id": "decline"
+    },
+    {
+      "id": "request-changes"
+    }
+  ],
+  "human": {
+    "url": "https://localhost:63426/review"
+  }
+}

@@ -1,0 +1,100 @@
+TAP version 13
+# Subtest: schedule and simultaneous duplicate trigger produce one of every effect
+ok 1 - schedule and simultaneous duplicate trigger produce one of every effect
+  ---
+  duration_ms: 3.291
+  type: 'test'
+  ...
+# Subtest: 429 retry waits requested interval, then retries without duplicate effect
+ok 2 - 429 retry waits requested interval, then retries without duplicate effect
+  ---
+  duration_ms: 0.5878
+  type: 'test'
+  ...
+# Subtest: lost acknowledgement after committed meeting is reconciled with same key
+ok 3 - lost acknowledgement after committed meeting is reconciled with same key
+  ---
+  duration_ms: 0.4964
+  type: 'test'
+  ...
+# Subtest: exhausted downstream retries pause; duplicate does not reset budget; explicit resume recovers
+ok 4 - exhausted downstream retries pause; duplicate does not reset budget; explicit resume recovers
+  ---
+  duration_ms: 0.6226
+  type: 'test'
+  ...
+# Subtest: long Retry-After defers instead of retrying early or sleeping without bound
+ok 5 - long Retry-After defers instead of retrying early or sleeping without bound
+  ---
+  duration_ms: 0.4418
+  type: 'test'
+  ...
+# Subtest: permanent error makes no automatic retry and logs no private values or raw error
+ok 6 - permanent error makes no automatic retry and logs no private values or raw error
+  ---
+  duration_ms: 0.2617
+  type: 'test'
+  ...
+# Subtest: reschedule invalidates old reminder; cancellation invalidates replacement
+ok 7 - reschedule invalidates old reminder; cancellation invalidates replacement
+  ---
+  duration_ms: 0.9321
+  type: 'test'
+  ...
+# Subtest: due reminder sends once and only for current scheduled version
+ok 8 - due reminder sends once and only for current scheduled version
+  ---
+  duration_ms: 0.4188
+  type: 'test'
+  ...
+# Subtest: failed update suppresses old reminder and rejects a competing newer event
+ok 9 - failed update suppresses old reminder and rejects a competing newer event
+  ---
+  duration_ms: 0.7849
+  type: 'test'
+  ...
+# Subtest: event id reuse with changed payload and out-of-order update cannot add effects
+ok 10 - event id reuse with changed payload and out-of-order update cannot add effects
+  ---
+  duration_ms: 0.7545
+  type: 'test'
+  ...
+# Subtest: file checkpoint resumes after constructing a fresh flow instance
+ok 11 - file checkpoint resumes after constructing a fresh flow instance
+  ---
+  duration_ms: 18.5454
+  type: 'test'
+  ...
+# Subtest: hanging adapter is timed out and aborted within a bounded attempt budget
+ok 12 - hanging adapter is timed out and aborted within a bounded attempt budget
+  ---
+  duration_ms: 47.2657
+  type: 'test'
+  ...
+# Subtest: reserved ids and malformed events fail before any side effect
+ok 13 - reserved ids and malformed events fail before any side effect
+  ---
+  duration_ms: 0.3135
+  type: 'test'
+  ...
+# Subtest: invalid adapter result is a protocol failure before downstream effects
+ok 14 - invalid adapter result is a protocol failure before downstream effects
+  ---
+  duration_ms: 0.2432
+  type: 'test'
+  ...
+# Subtest: paused reminder has explicit bounded resume that honours Retry-After
+ok 15 - paused reminder has explicit bounded resume that honours Retry-After
+  ---
+  duration_ms: 0.5068
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 135.1382

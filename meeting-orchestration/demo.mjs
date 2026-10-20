@@ -1,0 +1,15 @@
+import {MeetingFlow} from './src/flow.mjs';
+import {MemoryStore} from './src/store.mjs';
+import {FakeClock,FakeServices} from './src/fake-adapters.mjs';
+const services=new FakeServices(),store=new MemoryStore(),clock=new FakeClock(),logs=[];
+const flow=new MeetingFlow({store,adapters:services.adapters,clock,log:row=>logs.push(row)});
+const event={type:'schedule',eventId:'demo_schedule',requestId:'demo_request',version:1,title:'Synthetic planning call',attendee:'demo@example.invalid',startISO:'2026-10-20T11:00:00Z'};
+services.fail('meeting',{code:'RATE_LIMITED',retryable:true,retryAfterMs:750});
+services.fail('crm',{code:'TEMPORARY',retryable:true},{code:'TEMPORARY',retryable:true},{code:'TEMPORARY',retryable:true});
+const paused=await flow.handle(event),afterPause=services.counters();
+const duplicate=await flow.handle(event),afterDuplicate=services.counters();
+const recovered=await flow.handle(event,{resume:true}),afterRecovery=services.counters();
+const rescheduled=await flow.handle({...event,type:'reschedule',eventId:'demo_reschedule',version:2,startISO:'2026-10-20T12:00:00Z'});
+const cancelled=await flow.handle({type:'cancel',eventId:'demo_cancel',requestId:event.requestId,version:3});clock.advance(3*60*60*1000);
+const reminders=await flow.sendDueReminders();
+console.log(JSON.stringify({notice:'SYNTHETIC ORCHESTRATION PROOF ONLY. All adapters are fake. No MirrorFly, n8n, calendar, email or CRM service was contacted. No hosted joining URL is inferred.',paused,afterPause,duplicate,afterDuplicate,recovered,afterRecovery,rescheduled,cancelled,reminders,finalCounters:services.counters(),simulatedWaitsMs:clock.sleeps,logs},null,2));

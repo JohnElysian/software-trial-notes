@@ -1,0 +1,27 @@
+{
+  "packageVersion": "0.3.2",
+  "nodeVersion": "v24.20.0",
+  "npmVersion": "11.19.0",
+  "installCommand": "npm install --ignore-scripts --no-audit --no-fund mailschema@0.3.2",
+  "startedAt": "2026-10-20T07:18:03.892Z",
+  "firstValidAt": "2026-10-20T07:20:52.818Z",
+  "elapsedMinutes": 2.82,
+  "valid": {
+    "exitCode": 0,
+    "stdout": "Valid MAP 0.3 description urn:uuid:09311bbc-685e-408e-b132-16b31bd2c7fb\nsha-256:5cbc05b10085e16bb48cdb33fba43aa220f479031185a6d58a914ad009d73a46\n",
+    "stderr": ""
+  },
+  "negative": {
+    "exitCode": 1,
+    "stdout": "",
+    "stderr": "/details/destinations/0/visibility: must be one of \"public\", \"restricted\"\n"
+  },
+  "restored": {
+    "exitCode": 0,
+    "stdout": "Valid MAP 0.3 description urn:uuid:09311bbc-685e-408e-b132-16b31bd2c7fb\nsha-256:5cbc05b10085e16bb48cdb33fba43aa220f479031185a6d58a914ad009d73a46\n",
+    "stderr": ""
+  },
+  "descriptionDigest": "sha-256:5cbc05b10085e16bb48cdb33fba43aa220f479031185a6d58a914ad009d73a46",
+  "contentArtifactDigest": "sha-256:22484c28a4c689f678c4801f5e2652d94c3843be8432aae2139706784b419bdb",
+  "scope": "Local schema/digest testing only; no external action or authentication performed."
+}

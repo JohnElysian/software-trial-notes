@@ -1,0 +1,261 @@
+{
+  "notice": "SYNTHETIC ORCHESTRATION PROOF ONLY. All adapters are fake. No MirrorFly, n8n, calendar, email or CRM service was contacted. No hosted joining URL is inferred.",
+  "paused": {
+    "eventId": "demo_schedule",
+    "requestId": "demo_request",
+    "eventStatus": "failed",
+    "requestStatus": "pending",
+    "shortcode": "FAKE-MEET-1",
+    "pausedStep": "crm",
+    "code": "TEMPORARY",
+    "notBefore": null
+  },
+  "afterPause": {
+    "calls": {
+      "meeting": 2,
+      "calendar": 1,
+      "invite": 1,
+      "crm": 3,
+      "reminder": 0
+    },
+    "effects": {
+      "meeting": 1,
+      "calendar": 1,
+      "invite": 1,
+      "crm": 0,
+      "reminder": 0
+    },
+    "records": {
+      "meetings": 1,
+      "calendar": 1,
+      "invitations": 1,
+      "crm": 0,
+      "reminders": 0
+    }
+  },
+  "duplicate": {
+    "eventId": "demo_schedule",
+    "requestId": "demo_request",
+    "eventStatus": "failed",
+    "requestStatus": "pending",
+    "shortcode": "FAKE-MEET-1",
+    "pausedStep": "crm",
+    "code": "TEMPORARY",
+    "notBefore": null
+  },
+  "afterDuplicate": {
+    "calls": {
+      "meeting": 2,
+      "calendar": 1,
+      "invite": 1,
+      "crm": 3,
+      "reminder": 0
+    },
+    "effects": {
+      "meeting": 1,
+      "calendar": 1,
+      "invite": 1,
+      "crm": 0,
+      "reminder": 0
+    },
+    "records": {
+      "meetings": 1,
+      "calendar": 1,
+      "invitations": 1,
+      "crm": 0,
+      "reminders": 0
+    }
+  },
+  "recovered": {
+    "eventId": "demo_schedule",
+    "requestId": "demo_request",
+    "eventStatus": "complete",
+    "requestStatus": "scheduled",
+    "shortcode": "FAKE-MEET-1"
+  },
+  "afterRecovery": {
+    "calls": {
+      "meeting": 2,
+      "calendar": 1,
+      "invite": 1,
+      "crm": 4,
+      "reminder": 0
+    },
+    "effects": {
+      "meeting": 1,
+      "calendar": 1,
+      "invite": 1,
+      "crm": 1,
+      "reminder": 0
+    },
+    "records": {
+      "meetings": 1,
+      "calendar": 1,
+      "invitations": 1,
+      "crm": 1,
+      "reminders": 0
+    }
+  },
+  "rescheduled": {
+    "eventId": "demo_reschedule",
+    "requestId": "demo_request",
+    "eventStatus": "complete",
+    "requestStatus": "scheduled",
+    "shortcode": "FAKE-MEET-1"
+  },
+  "cancelled": {
+    "eventId": "demo_cancel",
+    "requestId": "demo_request",
+    "eventStatus": "complete",
+    "requestStatus": "cancelled",
+    "shortcode": "FAKE-MEET-1"
+  },
+  "reminders": {
+    "sent": 0
+  },
+  "finalCounters": {
+    "calls": {
+      "meeting": 2,
+      "calendar": 3,
+      "invite": 3,
+      "crm": 6,
+      "reminder": 0
+    },
+    "effects": {
+      "meeting": 1,
+      "calendar": 3,
+      "invite": 3,
+      "crm": 3,
+      "reminder": 0
+    },
+    "records": {
+      "meetings": 1,
+      "calendar": 1,
+      "invitations": 3,
+      "crm": 1,
+      "reminders": 0
+    }
+  },
+  "simulatedWaitsMs": [
+    750,
+    100,
+    200
+  ],
+  "logs": [
+    {
+      "event": "step_failed",
+      "correlation": "8614c1eb3c78",
+      "operation": "meeting",
+      "attempt": 1,
+      "code": "RATE_LIMITED",
+      "retryable": true
+    },
+    {
+      "event": "step_complete",
+      "correlation": "8614c1eb3c78",
+      "operation": "meeting",
+      "attempt": 2
+    },
+    {
+      "event": "step_complete",
+      "correlation": "8614c1eb3c78",
+      "operation": "calendar",
+      "attempt": 1
+    },
+    {
+      "event": "step_complete",
+      "correlation": "8614c1eb3c78",
+      "operation": "invite",
+      "attempt": 1
+    },
+    {
+      "event": "step_failed",
+      "correlation": "8614c1eb3c78",
+      "operation": "crm",
+      "attempt": 1,
+      "code": "TEMPORARY",
+      "retryable": true
+    },
+    {
+      "event": "step_failed",
+      "correlation": "8614c1eb3c78",
+      "operation": "crm",
+      "attempt": 2,
+      "code": "TEMPORARY",
+      "retryable": true
+    },
+    {
+      "event": "step_failed",
+      "correlation": "8614c1eb3c78",
+      "operation": "crm",
+      "attempt": 3,
+      "code": "TEMPORARY",
+      "retryable": true
+    },
+    {
+      "event": "event_paused",
+      "correlation": "8614c1eb3c78",
+      "code": "ADAPTER_STEP_PAUSED"
+    },
+    {
+      "event": "step_complete",
+      "correlation": "8614c1eb3c78",
+      "operation": "crm",
+      "attempt": 1
+    },
+    {
+      "event": "event_complete",
+      "correlation": "8614c1eb3c78",
+      "type": "schedule",
+      "version": 1
+    },
+    {
+      "event": "step_complete",
+      "correlation": "8614c1eb3c78",
+      "operation": "calendar",
+      "attempt": 1
+    },
+    {
+      "event": "step_complete",
+      "correlation": "8614c1eb3c78",
+      "operation": "invite",
+      "attempt": 1
+    },
+    {
+      "event": "step_complete",
+      "correlation": "8614c1eb3c78",
+      "operation": "crm",
+      "attempt": 1
+    },
+    {
+      "event": "event_complete",
+      "correlation": "8614c1eb3c78",
+      "type": "reschedule",
+      "version": 2
+    },
+    {
+      "event": "step_complete",
+      "correlation": "8614c1eb3c78",
+      "operation": "calendar",
+      "attempt": 1
+    },
+    {
+      "event": "step_complete",
+      "correlation": "8614c1eb3c78",
+      "operation": "invite",
+      "attempt": 1
+    },
+    {
+      "event": "step_complete",
+      "correlation": "8614c1eb3c78",
+      "operation": "crm",
+      "attempt": 1
+    },
+    {
+      "event": "event_complete",
+      "correlation": "8614c1eb3c78",
+      "type": "cancel",
+      "version": 3
+    }
+  ]
+}

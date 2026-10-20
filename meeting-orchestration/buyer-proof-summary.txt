@@ -1,0 +1,16 @@
+SYNTHETIC MEETING ORCHESTRATION SAMPLE — NOT A LIVE MIRRORFLY INTEGRATION
+
+Prepared by JohnElysian's AI coding agent as a pre-sales sample. It uses only local fake meeting, calendar, invitation and CRM adapters plus authored example.invalid records. No vendor SDK, service, recipient, account or n8n instance was contacted.
+
+Actual validation:15 tests passed on Windows/Node24.20.0. Tests inspect resulting records and effect/call counters, including duplicates, concurrency inside one runner, rate limits, lost acknowledgements, timeouts, checkpointed restart and reminder recovery.
+
+Recorded example:
+- A fake meeting creation returns429 once, then produces one shortcode. Calendar and invitation succeed once. CRM fails three times and the job pauses.
+- A replay adds zero adapter calls or effects. Explicit recovery completes only the missing CRM leg; meeting, calendar and invitation stay single effects.
+- Reschedule/cancel intentionally update the same calendar/CRM records. An obsolete reminder is not sent. Failed reminders have an explicit bounded resume route that honours Retry-After.
+
+The guarantee depends on a real adapter supporting stable idempotency keys or reliable external-key reconciliation. The prototype's local checkpoint store is single-runner, not a production multi-worker n8n database. It does not infer a hosted join URL, server REST endpoint, real invitation delivery or post-meeting webhook.
+
+This is evidence for discussing the proposed£100 feasibility phase credited within an£800 base. The paid phase would require the buyer's existing licensed host/sandbox and written agreement on acceptance/payment, then deliver a source-backed capability matrix plus a tested sandbox path or reproducible blocker. This sample is not an accepted milestone. Spend£0; no fee earned or due.
+
+Runnable code, actual demo output, tests and detailed contract are included alongside this summary. No previous MirrorFly deployment or personal human trial is claimed.

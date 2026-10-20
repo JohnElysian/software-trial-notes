@@ -1,0 +1,4 @@
+{
+  "mediaType": "text/markdown; charset=utf-8",
+  "body": "# Local publication gate trial\n\nThis authored developer note describes a local-only software trial. The prototype uses mailschema0.3.2 for contract and digest checking, freezes a content revision, and separates native service decisions from email trust. No authenticated email, public publication or production MAP conformance is claimed. The default MAP entry point must refuse mail whose trust has not been established.\n"
+}

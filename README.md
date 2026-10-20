@@ -10,5 +10,7 @@ Original trial scripts are MIT licensed. Referenced vendor tools retain their ow
 
 - [Nitrosend CLI report](nitrosend-cli/report.md) and [observed evidence](nitrosend-cli/evidence.json).
 - [Nitrosend TypeScript report](nitrosend-typescript/report.md) and [19-line script](nitrosend-typescript/send.ts).
+- [MailSchema local publication lab](mailschema-publication/README.txt), [run report](mailschema-publication/report.md) and [frozen description](mailschema-publication/description.json). Ten local tests; no authenticated email or production MAP service is claimed.
+- [Synthetic meeting orchestration](meeting-orchestration/README.md): fifteen local tests exercise retries, duplicate events, recovery and reminder invalidation through fake adapters. No live MirrorFly or n8n integration is claimed.
 
 The TypeScript directory includes a fetch-intercepted test: `npm ci --ignore-scripts`, `npm run typecheck`, `npm run build`, then `npm run dry-run`. That path uses a dummy credential and sends no email. The separately recorded real sends used the exact owner-approved messages.

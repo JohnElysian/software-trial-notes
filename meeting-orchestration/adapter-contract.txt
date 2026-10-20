@@ -1,0 +1,27 @@
+INJECTED ADAPTER CONTRACT — PROPOSED, NOT A MIRRORFLY API SPECIFICATION
+
+All methods below are local interfaces for testing. They are NOT asserted to be real vendor methods or HTTP endpoints. Buyer/vendor capability review must map them to licensed, supported operations or report a blocker.
+
+meeting.create({requestId}, idempotencyKey, {signal}) -> {shortcode}
+calendar.upsert({requestId,version,status,shortcode,title,startISO,attendee}, key, {signal}) -> {id}
+invitation.send(samePayload, key, {signal}) -> {id}
+invitation.remind(samePayload, key, {signal}) -> {id}
+crm.upsert(samePayload, key, {signal}) -> {id}
+
+status is scheduled or cancelled. Cancel events carry the previously recorded title/time/recipient. Calendar/CRM upserts must target the stable request record rather than append a new record per retry. A new intended version may have its own update/invitation effect. No modelled method deletes a MirrorFly room or constructs a joining URL.
+
+REQUIRED SEMANTICS FOR A REAL ADAPTER
+- Same key + same action returns the same prior result without repeating its external effect, OR a reliable external-key reconciliation path supplies that behaviour. Retention must cover the replay/recovery window.
+- The adapter must not claim success before the provider has acknowledged the intended operation. Validate returned IDs/codes. Lost acknowledgements must be reconciled with the same key.
+- Honour AbortSignal where the provider supports cancellation. Treat an aborted/time-out request as an unknown external outcome, not proof of no effect.
+- Throw AdapterError with an allowlisted safe code. retryable=true is permitted only for an understood temporary error. RATE_LIMITED can include retryAfterMs; the runner respects the minimum delay or pauses if beyond its wait budget.
+- Do not place raw tokens, URLs containing credentials, request bodies or vendor error dumps in log-safe fields. Adapter messages are never logged by this proof.
+
+RUNNER RETRY POLICY IN THIS SAMPLE
+Three attempts per explicit run; exponential waits100/200ms by default; automatic wait cap2000ms; per-attempt timeout1000ms. A longer Retry-After creates notBefore and pauses. Duplicate events do not grant a new budget. handle(event,{resume:true}) is an explicit repaired-job request and retains the original idempotency key. sendDueReminders({resumeFailed:true}) similarly resumes eligible failed reminders with stable keys, a bounded budget and the same notBefore gate. Ordinary timer ticks do not reset failure budgets. Production recovery controls and durable scheduling remain separate work.
+
+PERSISTENCE/CONCURRENCY
+The prototype serializes calls inside ONE MeetingFlow instance. JsonFileStore checkpoints across sequential process/runner instances; it does not lock multiple processes. A production n8n deployment needs a shared transactional store and unique-key/distributed-lock strategy. The tests do not establish production exactly-once delivery or live provider support.
+
+PAID FEASIBILITY ACCEPTANCE PROPOSED FOR BUYER REVIEW
+£100 credited within an£800 base, payable only if buyer agrees written acceptance/payment terms first. Deliver a source-backed capability matrix and either one sandbox scheduling path on the buyer's existing licensed host or a reproducible documented blocker. A fake-adapter test pass is not that live acceptance milestone. No vendor purchase, new account, private credential or live access was used here.

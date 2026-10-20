@@ -1,0 +1,18 @@
+✔ email-less default refuses before any service read (59.8719ms)
+✔ untrusted mail fixture and wrong delivered recipient fail closed (22.2577ms)
+✔ changed terms are rejected even when the description still passes schema (19.7686ms)
+✔ wrong description recipient is rejected independently of synthetic mail fixture (20.0651ms)
+✔ native decision rejects stale expected terms (28.9792ms)
+✔ authoritative TLS readback returns the frozen artifact, not a caller clone (21.7725ms)
+✔ synthetic trusted decline closes proposal and never publishes (24.2561ms)
+✔ racing terminal decisions admit exactly one; no asynchronous gap in commit (24.1512ms)
+✔ request-changes stores untrusted feedback without editing or publishing (22.5388ms)
+✔ expiry is enforced at the native decision, not merely by a client preview (21.1058ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 405.5761

@@ -1,0 +1,13 @@
+{
+  "name": "local-map-publication-lab",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test gate.test.mjs",
+    "trial": "node trial.mjs"
+  },
+  "dependencies": {
+    "mailschema": "0.3.2"
+  },
+  "version": "0.1.0"
+}

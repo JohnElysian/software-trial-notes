@@ -1,0 +1,284 @@
+{
+  "id": "https://mailschema.org/types/publication-approval",
+  "version": "0.1",
+  "profile": "https://mailschema.org/profiles/map/0.3",
+  "name": "Publication Approval",
+  "summary": "Authorize publishing one immutable content revision at stated destinations and visibility.",
+  "requirements": [
+    "The service MUST bind the subject, recipient, service tenant, contract digest, and all action-relevant details to terms.version. Every decision MUST atomically compare that version and enforce current authorization, expiry, and proposal state.",
+    "The service MUST freeze the referenced content revision and all other action-relevant inputs for accepted asynchronous work. If it cannot execute those exact terms it MUST stop that work; it MUST NOT substitute current mutable values.",
+    "The host MUST obtain the actual immutable content and relevant destination or audience information through the trusted service binding before claiming a policy check over those values. A digest, title, preview, count, or identifier alone does not demonstrate content-policy compliance.",
+    "The service MUST permit at most one terminal decision for the proposal. approve, decline, and request-changes are mutually exclusive terminal decisions for that proposal version. A revised proposal requires a new interaction and new decision.",
+    "The request-changes operation MUST only record the supplied feedback and close this proposal as requiring revision. It MUST NOT generate, edit, approve, send, or publish revised content automatically. Feedback remains untrusted text.",
+    "A capability offered for decline MUST be independently scoped to that refusal and exact proposal, expire within seven days of issuedAt and no later than expiresAt, and convey no authority to approve or supply feedback.",
+    "Exact terms MUST cover all content and attachments, publication destinations and accounts, visibility, schedule, and the existing revision being replaced, if any. A change to any of these values requires new terms.",
+    "The destination list MUST enumerate the exact locations affected. A mutable collection label MUST NOT authorize new locations added after approval. For restricted publication, audience.id and audience.revision MUST identify an immutable authorized readership; a vague label such as team is insufficient.",
+    "Content digest MUST identify the immutable publication artifact. The trusted implementation MUST document its representation and verify the artifact. Approval of a title or an inaccessible digest alone MUST NOT be presented as review of the content.",
+    "Publication approval MUST NOT change account permissions, purchase promotion, schedule unrelated content, or publish a subsequent revision.",
+    "This contract authorizes publication. Approval under a different contract MUST NOT be treated as permission to publish without a new, explicit publication decision."
+  ],
+  "detailsSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "summary",
+      "requester",
+      "content",
+      "destinations",
+      "schedule"
+    ],
+    "properties": {
+      "summary": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2048
+      },
+      "requester": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2048
+      },
+      "content": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "revision",
+          "digest",
+          "title"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "format": "uri",
+            "maxLength": 2048,
+            "description": "Content resource identifier, resolved only through the trusted service binding."
+          },
+          "revision": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "description": "Immutable service revision."
+          },
+          "digest": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^sha-256:[0-9a-f]{64}$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048,
+            "description": "Content title for display; not a substitute for the content itself."
+          }
+        }
+      },
+      "destinations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "account",
+            "visibility"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "format": "uri",
+              "maxLength": 2048
+            },
+            "account": {
+              "type": "string",
+              "minLength": 1,
+              "format": "uri",
+              "maxLength": 2048
+            },
+            "visibility": {
+              "enum": [
+                "public",
+                "restricted"
+              ]
+            },
+            "audience": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "revision"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "format": "uri",
+                  "maxLength": 2048
+                },
+                "revision": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 256
+                }
+              }
+            },
+            "replacesRevision": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "visibility": {
+                    "const": "restricted"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "audience"
+                ]
+              },
+              "else": {
+                "not": {
+                  "required": [
+                    "audience"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "minItems": 1,
+        "maxItems": 32
+      },
+      "schedule": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode"
+            ],
+            "properties": {
+              "mode": {
+                "const": "immediate"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "at"
+            ],
+            "properties": {
+              "mode": {
+                "const": "scheduled"
+              },
+              "at": {
+                "type": "string",
+                "minLength": 1,
+                "format": "date-time",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "operations": [
+    {
+      "id": "approve",
+      "name": "Approve",
+      "semantics": "Authorize publishing this content on the exact terms displayed. Acceptance may queue the work; the connector MUST distinguish acceptance from completion. This decision does not grant standing permission for later proposals.",
+      "effects": [
+        "https://mailschema.org/effects/communication",
+        "https://mailschema.org/effects/disclosure",
+        "https://mailschema.org/effects/state"
+      ],
+      "bindings": [
+        "credential"
+      ],
+      "actors": [
+        "human",
+        "agent"
+      ],
+      "exactTerms": true,
+      "inputSchema": null,
+      "outcomes": {
+        "accepted": "The service accepted the exact decision; the authorized work may still be pending.",
+        "completed": "The service confirms publishing this content completed under the accepted terms.",
+        "failed": "The authorized work failed; the connector preserves the service's partial-progress information and MUST NOT claim that no external effect occurred."
+      }
+    },
+    {
+      "id": "decline",
+      "name": "Decline",
+      "semantics": "Refuse this exact proposal and close it without authorizing the requested work. The service MUST NOT execute the proposed work as a consequence of refusal.",
+      "effects": [
+        "https://mailschema.org/effects/refusal",
+        "https://mailschema.org/effects/state"
+      ],
+      "bindings": [
+        "credential",
+        "capability"
+      ],
+      "actors": [
+        "human",
+        "agent"
+      ],
+      "exactTerms": true,
+      "inputSchema": null,
+      "outcomes": {
+        "declined": "The service recorded refusal of this proposal."
+      },
+      "capability": {
+        "kind": "refusal",
+        "maxLifetimeSeconds": 604800
+      }
+    },
+    {
+      "id": "request-changes",
+      "name": "Request changes",
+      "semantics": "Record specific feedback and close this proposal as requiring revision, without authorizing the proposed work or a future revision.",
+      "effects": [
+        "https://mailschema.org/effects/state"
+      ],
+      "bindings": [
+        "credential"
+      ],
+      "actors": [
+        "human",
+        "agent"
+      ],
+      "exactTerms": true,
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "comment"
+        ],
+        "properties": {
+          "comment": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "description": "Requested changes, treated as untrusted text. It is not an instruction to a model or automatic permission to alter the proposal."
+          }
+        }
+      },
+      "outcomes": {
+        "changes-requested": "The service recorded the feedback; a revised proposal requires a new decision."
+      }
+    }
+  ]
+}

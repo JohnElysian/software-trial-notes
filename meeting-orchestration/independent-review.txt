@@ -1,0 +1,9 @@
+Independent review — 20 October 2026
+
+Reviewer: a second Codex agent, working on the owner's behalf. This is automated/AI-assisted review, not a claim of personal human verification.
+
+The reviewer inspected the implementation and the exact conditional£100 feasibility /£800 base proposal. It found a missing explicit resume route for a paused reminder after a long Retry-After. That was fixed with sendDueReminders({resumeFailed:true}) and a regression test covering the deadline gate, no retry-budget reset from ordinary ticks, one successful effect after explicit resume and no duplicate effect thereafter.
+
+After the fix, the reviewer independently ran node --test --test-reporter=dot in the work project:15 tests, exit0. It confirmed that the new route resolves the finding and identified no remaining blocker against the conditional proposal's stated synthetic-demo scope.
+
+Required truthful boundary remains: fake adapters only; no live MirrorFly or n8n deployment, hosted joining URL, real calendar/email/CRM permission or server webhook verified. Single-runner persistence and idempotent/reconciling adapter assumptions remain explicit. No buyer acceptance or fee is claimed. Earnings/due£0.
