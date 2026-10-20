@@ -1,0 +1,18 @@
+{
+  "name": "nitro-sdk-trial",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --strict --noEmit",
+    "build": "tsc --strict",
+    "dry-run": "node dry-run-check.mjs"
+  },
+  "type": "module",
+  "dependencies": {
+    "@nitrosend/sdk": "0.11.6"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "typescript": "7.0.2"
+  }
+}
